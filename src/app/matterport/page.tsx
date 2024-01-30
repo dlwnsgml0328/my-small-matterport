@@ -42,7 +42,7 @@ const Matterport = () => {
         <iframe
           width='853'
           height='480'
-          src={`/mpsdk_bundle/showcase.html?m=9bn8wwnC87a&applicationKey=${process.env.NEXT_PUBLIC_MATTERPORT_API_KEY}`}
+          src={`/mpsdk_bundle/showcase.html?m=9bn8wwnC87a&applicationKey=${process.env.NEXT_PUBLIC_MATTERPORT_KEY}`}
           frameBorder='0'
           allow='fullscreen; vr'
           id='showcase-iframe'
