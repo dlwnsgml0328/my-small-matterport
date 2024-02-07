@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ShowcaseBundleWindow } from '../../../public/mpsdk_bundle/sdk';
+import { MpSdk, ShowcaseBundleWindow } from '../../../public/mpsdk_bundle/sdk';
 
 const Matterport = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -15,6 +15,10 @@ const Matterport = () => {
     };
   }, []);
 
+  const initMPSDKHandler = useCallback((mpSdk: MpSdk) => {
+    const { Tour, Mattertag, Tag, App, Asset } = mpSdk;
+  }, []);
+
   const onLoad = useCallback(() => {
     if (!iframeRef.current) {
       alert('iframeRef.current is null');
@@ -25,12 +29,12 @@ const Matterport = () => {
       iframeRef?.current?.contentWindow as ShowcaseBundleWindow
     )
       .then((sdk) => {
-        console.log('sdk:', sdk);
+        initMPSDKHandler(sdk);
       })
       .catch((e) => {
         console.error(e);
       });
-  }, []);
+  }, [initMPSDKHandler]);
 
   return (
     <>
@@ -42,7 +46,7 @@ const Matterport = () => {
         <iframe
           width='853'
           height='480'
-          src={`/mpsdk_bundle/showcase.html?m=9bn8wwnC87a&applicationKey=${process.env.NEXT_PUBLIC_MATTERPORT_KEY}`}
+          src={`/mpsdk_bundle/showcase.html?m=7MnDZDQhUrP&applicationKey=${process.env.NEXT_PUBLIC_MATTERPORT_KEY}&play=1`}
           frameBorder='0'
           allow='fullscreen; vr'
           id='showcase-iframe'
