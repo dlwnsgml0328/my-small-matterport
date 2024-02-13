@@ -1,30 +1,25 @@
-'use client';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
-export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
+export const URL = 'https://nomad-movies.nomadcoders.workers.dev/movies';
 
-  const fetchMovies = async () => {
-    try {
-      const response = await fetch('https://nomad-movies.nomadcoders.workers.dev/movies');
+async function fetchMovies() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      if (!response.ok) throw new Error('Failed to fetch movies');
+  const response = await fetch(URL);
+  const movies = await response.json();
+  return movies;
+}
 
-      const data = await response.json();
+export default async function Home() {
+  const movies = await fetchMovies();
 
-      setMovies(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
-  return <main>{isLoading ? <p>Loading...</p> : <>{JSON.stringify(movies)}</>}</main>;
+  return (
+    <main>
+      {movies.map((movie: any) => (
+        <li key={movie.id}>
+          <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+        </li>
+      ))}
+    </main>
+  );
 }
