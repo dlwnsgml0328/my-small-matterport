@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export const URL = 'https://nomad-movies.nomadcoders.workers.dev/movies';
+const URL = 'https://nomad-movies.nomadcoders.workers.dev/movies';
 
 async function fetchMovies() {
   await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -18,6 +18,14 @@ export default async function Home() {
       {movies.map((movie: any) => (
         <li key={movie.id}>
           <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+        </li>
+      ))}
+
+      <h1>Error movie id</h1>
+
+      {movies.map((movie: any) => (
+        <li key={movie.id}>
+          <Link href={`/error-movie/${movie.id}`}>error: {movie.title}</Link>
         </li>
       ))}
     </main>
