@@ -17,7 +17,9 @@ export default async function Home() {
     <main>
       {movies.map((movie: any) => (
         <li key={movie.id}>
-          <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+          <Link prefetch href={`/movies/${movie.id}`}>
+            {movie.title}
+          </Link>
         </li>
       ))}
 
